@@ -31,7 +31,7 @@ extension #{@model.name} {
         guard #{json_parsing_template} else { return nil }
         return #{@model.name}(#{model.key_value_pair})
     }
-    static func parses(jsons: [[String: Any]]) -> [#{@model.name}] {
+    static func parse(jsons: [[String: Any]]) -> [#{@model.name}] {
         return jsons.flatMap(parse)
     }
 }

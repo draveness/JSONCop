@@ -13,6 +13,8 @@ module JSONCop
     self.plugin_prefixes = %w(claide meta)
 
     def self.run(argv)
+      raise Informative, "JSONCop must run in project root folder which contains a xcodeproj file" \
+       unless Dir.glob("*.xcodeproj").count > 0
       super(argv)
     end
 
