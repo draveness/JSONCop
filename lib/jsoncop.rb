@@ -1,5 +1,7 @@
 require "jsoncop/version"
 
 module JSONCop
-  # Your code goes here...
+  require 'jsoncop/version'
+
+  autoload :Command,   'jsoncop/command'
 end
