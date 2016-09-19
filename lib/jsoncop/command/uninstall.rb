@@ -1,6 +1,6 @@
 module JSONCop
   class Command
-    class Deintegrate < Command
+    class Uninstall < Command
       self.summary = ""
       self.description = <<-DESC
       DESC
@@ -10,6 +10,15 @@ module JSONCop
       end
 
       def run
+        Dir.glob("**/*.swift").each do |file_path|
+          jsoncop_generate_start = /jsoncop: generate\-start/
+          jsoncop_generate_end = /jsoncop: generate\-end/
+          content = File.read file_path
+          if content.match(jsoncop_generate_start) && content.match(jsoncop_generate_end)
+            content.gsub!(/\/\/ jsoncop: generate-start[^$]*jsoncop: generate\-end/, "")
+          end
+          File.write file_path, content + json_cop_template
+        end
       end
     end
   end
