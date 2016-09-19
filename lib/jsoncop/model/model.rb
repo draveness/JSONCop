@@ -4,13 +4,13 @@ module JSONCop
       attr_reader :name
       attr_accessor :attributes
       attr_accessor :transformers
-      attr_accessor :json_attr_hash
+      attr_accessor :attr_json_hash
 
       def initialize(name)
           @name = name.clear
           @attributes = []
           @transformers = []
-          @json_attr_hash = {}
+          @attr_json_hash = {}
       end
     end
   end
