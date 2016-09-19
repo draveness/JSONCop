@@ -17,10 +17,34 @@ module JSONCop
       jsoncop_generated_end = /jsoncop: generated\-end/
       content = File.read file_path
       if content.match(jsoncop_generated_start) && content.match(jsoncop_generated_end)
-        content.gsub!(/\/\/\ jsoncop: generated\-start.*\/\/jsoncop: generated\-end/, "")
+        content.gsub!(/\/\/ jsoncop: generated-start[^$]*jsoncop: generated\-end/, "")
       end
-      p content
+      File.write file_path, content + json_cop_template
     end
 
+    def json_cop_template
+      <<-JSONCOP
+// jsoncop: generated-start
+
+extension #{@model.name} {
+    static func parse(json: [String: Any]) -> #{@model.name}? {
+        guard #{json_parsing_template} else { return nil }
+        return #{@model.name}(#{model.key_value_pair})
+    }
+}
+
+// jsoncop: generated-end
+      JSONCOP
+    end
+
+    def json_parsing_template
+      @model.attributes.map do |attr|
+        if @model.transformers.include? attr.name
+          "let #{attr.name} = (json[\"#{@model.attr_json_hash[attr.name]}\"]).flatMap(#{attr.name}JSONTransformer)"
+        else
+          "let #{attr.name} = json[\"#{@model.attr_json_hash[attr.name]}\"] as? #{attr.type}"
+        end
+      end.join(",\n\t\t")
+    end
   end
 end

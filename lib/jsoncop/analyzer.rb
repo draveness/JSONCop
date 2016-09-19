@@ -9,7 +9,7 @@ module JSONCop
     MODEL_NAME_REGEX = /(struct|class)\s+(.+)\s*{/
     ATTRIBUTE_REGEX = /^\s+(let|var)\s(.+):(.+)/
     JSON_TRANSFORMER_REGEX = /^\s+static\s+func\s+(.+)JSONTransformer.+->.+/
-    JSON_BY_PROPERTY_HASH_REGEX = /static func JSONKeyPathByPropertyKey\(\)\s*->\s*\[String\s*:\s*String\]\s*{\s*return\s*(\[[\s"a-z0-9A-Z_\-:\[\],]*)}/
+    JSON_BY_PROPERTY_HASH_REGEX = /static\s+func\s+JSONKeyPathByPropertyKey\(\)\s*->\s*\[String\s*:\s*String\]\s*{\s*return\s*(\[[\s"a-z0-9A-Z_\-:\[\],]*)}/
 
     attr_reader :file_path
     attr_accessor :model
@@ -34,10 +34,10 @@ module JSONCop
         end
       end
 
-      json_attr_list = content.scan(JSON_BY_PROPERTY_HASH_REGEX).flatten.first.clear
-      json_attr_list.gsub!(/(\[|\]|")/, '')
+      json_attr_list = content.scan(JSON_BY_PROPERTY_HASH_REGEX).flatten.first
+      json_attr_list.gsub!(/[(\[\]"\s)]*/, '')
       @model.attr_json_hash = Hash[json_attr_list.split(",").map { |attr_json_pair| attr_json_pair.split(":").reverse }]
-      p @model
+      @model
     end
 
   end

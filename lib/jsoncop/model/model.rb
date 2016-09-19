@@ -12,6 +12,10 @@ module JSONCop
           @transformers = []
           @attr_json_hash = {}
       end
+
+      def key_value_pair
+        attributes.map { |attribute| "#{attribute.name}: #{attribute.name}" }.join(", ")
+      end
     end
   end
 end
