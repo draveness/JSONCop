@@ -6,7 +6,7 @@
 
 JSONCop makes it easy to write a simple model layer for your Cocoa and Cocoa Touch application.
 
-> JSONCop's APIs are highly inspired by [Mantle](https://github.com/Mantle/Mantle), you can use similar APIs to generate parsing methods.
+> JSONCop's APIs are highly inspired by [Mantle](https://github.com/Mantle/Mantle), you can use similar APIs to generate parsing methods with JSONCop.
 
 ```swift
 let json: [String: Any] = [
@@ -54,23 +54,7 @@ $ cop install
 
 This will generate several parsing methods in current file:
 
-```swift
-// jsoncop: generate-start
-
-extension Person {
-    static func parse(json: [String: Any]) -> Person? {
-        guard let id = json["id"] as? Int,
-		let name = json["name"] as? String,
-		let createdAt = (json["createdAt"]).flatMap(createdAtJSONTransformer) else { return nil }
-        return Person(id: id, name: name, createdAt: createdAt)
-    }
-    static func parse(jsons: [[String: Any]]) -> [Person] {
-        return jsons.flatMap(parse)
-    }
-}
-
-// jsoncop: generate-end
-```
+![](./images/jsoncop-demo.png)
 
 All the code between `generate-start` and `generate-end` and will be replaced when re-run `cop install` in current project folder. Other codes will remain unchanged. Please don't write any codes in this area.
 
@@ -82,7 +66,7 @@ sudo gem install jsoncop --verbose
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/jsoncop. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/draveness/jsoncop. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 
 ## License
