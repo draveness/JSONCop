@@ -3,12 +3,13 @@ module JSONCop
 
     require 'jsoncop/model/model'
     require 'jsoncop/model/attribute'
+    require 'jsoncop/model/transformer'
 
     JSON_COP_ENABLED = /jsoncop: enabled/
 
     MODEL_NAME_REGEX = /(struct|class)\s+(.+)\s*{/
     ATTRIBUTE_REGEX = /^\s+(let|var)\s(.+):(.+)/
-    JSON_TRANSFORMER_REGEX = /^\s+static\s+func\s+(.+)JSONTransformer.+->.+/
+    JSON_TRANSFORMER_REGEX = /^\s+static\s+func\s+(.+)JSONTransformer\(.+?\:(.+)\).+->.+/
     JSON_BY_PROPERTY_HASH_REGEX = /static\s+func\s+JSONKeyPathByPropertyKey\(\)\s*->\s*\[String\s*:\s*String\]\s*{\s*return\s*(\[[\s"a-z0-9A-Z_\-:\[\],]*)}/
 
     attr_reader :file_path
@@ -22,6 +23,7 @@ module JSONCop
       content = File.read file_path
       return unless content =~ JSON_COP_ENABLED
       content.each_line do |line|
+        break if line.match(/\/\/ jsoncop: generate\-start/)
         if line =~ MODEL_NAME_REGEX
           model_name = line.scan(MODEL_NAME_REGEX).flatten.last
           @model = Model::Model.new model_name
@@ -30,7 +32,7 @@ module JSONCop
           @model.attributes << Model::Attribute.new(result[1], result[2])
         elsif line =~ JSON_TRANSFORMER_REGEX
           result = line.scan(JSON_TRANSFORMER_REGEX).flatten
-          @model.transformers << result.first
+          @model.transformers << Model::Transformer.new(result[0], result[1])
         end
       end
 
