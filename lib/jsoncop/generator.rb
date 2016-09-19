@@ -48,11 +48,11 @@ extension #{@model.name} {
       @model.attributes.map do |attr|
         transformer = @model.transformers.select { |t| t.name == attr.name }.first
         if transformer
-          "let #{attr.name} = (json[\"#{@model.attr_json_hash[attr.name]}\"] as? #{transformer.type}).flatMap(#{attr.name}JSONTransformer)"
+          "let #{attr.name} = (json[\"#{@model.attr_json_hash[attr.name] || attr.name}\"] as? #{transformer.type}).flatMap(#{attr.name}JSONTransformer)"
         else
-          "let #{attr.name} = json[\"#{@model.attr_json_hash[attr.name]}\"] as? #{attr.type}"
+          "let #{attr.name} = json[\"#{@model.attr_json_hash[attr.name] || attr.name}\"] as? #{attr.type}"
         end
-      end.join(",\n\t\t")
+      end.join(",\n\t\t\t")
     end
   end
 end

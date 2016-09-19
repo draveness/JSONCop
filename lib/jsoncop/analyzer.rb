@@ -37,8 +37,10 @@ module JSONCop
       end
 
       json_attr_list = content.scan(JSON_BY_PROPERTY_HASH_REGEX).flatten.first
-      json_attr_list.gsub!(/[(\[\]"\s)]*/, '')
-      @model.attr_json_hash = Hash[json_attr_list.split(",").map { |attr_json_pair| attr_json_pair.split(":").reverse }]
+      if json_attr_list
+        json_attr_list.gsub!(/[(\[\]"\s)]*/, '')
+        @model.attr_json_hash = Hash[json_attr_list.split(",").map { |attr_json_pair| attr_json_pair.split(":").reverse }]
+      end
       @model
     end
 
