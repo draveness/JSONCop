@@ -13,18 +13,18 @@ module JSONCop
     end
 
     def generate!
-      jsoncop_generated_start = /jsoncop: generated\-start/
-      jsoncop_generated_end = /jsoncop: generated\-end/
+      jsoncop_generate_start = /jsoncop: generate\-start/
+      jsoncop_generate_end = /jsoncop: generate\-end/
       content = File.read file_path
-      if content.match(jsoncop_generated_start) && content.match(jsoncop_generated_end)
-        content.gsub!(/\/\/ jsoncop: generated-start[^$]*jsoncop: generated\-end/, "")
+      if content.match(jsoncop_generate_start) && content.match(jsoncop_generate_end)
+        content.gsub!(/\/\/ jsoncop: generate-start[^$]*jsoncop: generate\-end/, "")
       end
       File.write file_path, content + json_cop_template
     end
 
     def json_cop_template
       <<-JSONCOP
-// jsoncop: generated-start
+// jsoncop: generate-start
 
 extension #{@model.name} {
     static func parse(json: [String: Any]) -> #{@model.name}? {
@@ -36,7 +36,7 @@ extension #{@model.name} {
     }
 }
 
-// jsoncop: generated-end
+// jsoncop: generate-end
       JSONCOP
     end
 

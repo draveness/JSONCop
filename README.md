@@ -1,34 +1,84 @@
 # JSONCop
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/jsoncop`. To experiment with that code, run `bin/console` for an interactive prompt.
+[![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://github.com/draveness/jsoncop/blob/master/LICENSE)
+[![Gem](https://img.shields.io/gem/v/jsoncop.svg?style=flat)](http://rubygems.org/gems/jsoncop)
+[![Swift](https://img.shields.io/badge/swift-3.0-yellow.svg)](https://img.shields.io/badge/Swift-%203.0%20-yellow.svg)
 
-TODO: Delete this and the text above, and describe your gem
+JSONCop makes it easy to write a simple model layer for your Cocoa and Cocoa Touch application.
 
-## Installation
+> JSONCop's APIs are highly inspired by [Mantle](https://github.com/Mantle/Mantle), you can use similar APIs to generate parsing methods.
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'jsoncop'
+```swift
+let json: [String: Any] = [
+    "id": 1,
+    "name": "Draven",
+    "createdAt": NSTimeIntervalSince1970
+]
+let person = Person.parse(json: json)
 ```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install jsoncop
 
 ## Usage
 
-TODO: Write usage instructions here
+Define a model with and implement `static func JSONKeyPathByPropertyKey` method:
 
-## Development
+```swift
+// jsoncop: enabled
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+struct Person {
+    let id: Int
+    let name: String
+    let createdAt: Date
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+    static func JSONKeyPathByPropertyKey() -> [String: String] {
+        return [
+            "id": "id",
+            "name": "name",
+            "createdAt": "createdAt"
+        ]
+    }
+
+    static func createdAtJSONTransformer(value: Any) -> Date? {
+        guard let value = value as? Double else { return nil }
+        return Date(timeIntervalSinceNow: value)
+    }
+}
+```
+
+> DO NOT forget to add "// jsoncop: enabled" before struct.
+
+Run `cop install` in project root folder.
+
+```shell
+$ cop install
+```
+
+This will generate several parsing methods in current file:
+
+```swift
+// jsoncop: generate-start
+
+extension Person {
+    static func parse(json: [String: Any]) -> Person? {
+        guard let id = json["id"] as? Int,
+		let name = json["name"] as? String,
+		let createdAt = (json["createdAt"]).flatMap(createdAtJSONTransformer) else { return nil }
+        return Person(id: id, name: name, createdAt: createdAt)
+    }
+    static func parse(jsons: [[String: Any]]) -> [Person] {
+        return jsons.flatMap(parse)
+    }
+}
+
+// jsoncop: generate-end
+```
+
+All the code between `generate-start` and `generate-end` and will be replaced when re-run `cop install` in current project folder. Other codes will remain unchanged. Please don't write any codes in this area.
+
+## Installation
+
+```
+sudo gem install jsoncop --verbose
+```
 
 ## Contributing
 
@@ -38,4 +88,3 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/[USERN
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
