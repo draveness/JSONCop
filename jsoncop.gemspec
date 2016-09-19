@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Draveness"]
   spec.email         = ["stark.draven@gmail.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{A JSON to model method generator.}
+  spec.description   = %q{A JSON to model method generator.}
+  spec.homepage      = "https://github.com/Draveness/JSONCop"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
@@ -22,9 +22,8 @@ Gem::Specification.new do |spec|
     raise "RubyGems 2.0 or newer is required to protect against public gem pushes."
   end
 
-  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
-  spec.bindir        = "exe"
-  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) } + %w{ bin/cop }
+  spec.executables   = %w{ cop }
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency 'claide',         '>= 1.0.0', '< 2.0'

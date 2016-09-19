@@ -13,8 +13,10 @@ module JSONCop
       end
 
       def run
-        p Dir["."]
-        create_analyzer_for_file
+        Dir.glob("**/*.swift").each do |file|
+          analyzer = create_analyzer_for_file file
+          analyzer.analyze!
+        end
       end
 
       def create_analyzer_for_file(file_path)
