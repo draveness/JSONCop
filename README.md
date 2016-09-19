@@ -52,7 +52,7 @@ Run `cop install` in project root folder.
 $ cop install
 ```
 
-This will generate several parsing methods in current file:
+This will generate several parsing methods in current file without affecting other part of your codes:
 
 ![](./images/jsoncop-demo.png)
 
