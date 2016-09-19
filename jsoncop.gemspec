@@ -5,7 +5,7 @@ require 'jsoncop/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "jsoncop"
-  spec.version       = Jsoncop::VERSION
+  spec.version       = JSONCop::VERSION
   spec.authors       = ["Draveness"]
   spec.email         = ["stark.draven@gmail.com"]
 

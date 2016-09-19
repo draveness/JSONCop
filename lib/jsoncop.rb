@@ -1,5 +1,5 @@
 require "jsoncop/version"
 
-module Jsoncop
+module JSONCop
   # Your code goes here...
 end
