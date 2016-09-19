@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["stark.draven@gmail.com"]
 
   spec.summary       = %q{A JSON to model method generator.}
-  spec.description   = %q{A JSON to model method generator.}
+  spec.description   = %q{A light-weight JSON to model method generator.}
   spec.homepage      = "https://github.com/Draveness/JSONCop"
   spec.license       = "MIT"
 
@@ -22,7 +22,8 @@ Gem::Specification.new do |spec|
     raise "RubyGems 2.0 or newer is required to protect against public gem pushes."
   end
 
-  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) } + %w{ bin/cop }
+  spec.files = Dir["lib/**/*.rb"] + %w{ bin/cop README.md LICENSE }
+
   spec.executables   = %w{ cop }
   spec.require_paths = ["lib"]
 

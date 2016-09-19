@@ -19,7 +19,7 @@ module JSONCop
     end
 
     def analyze!
-      content = File.read @file_path
+      content = File.read file_path
       return unless content =~ JSON_COP_ENABLED
       content.each_line do |line|
         if line =~ MODEL_NAME_REGEX
