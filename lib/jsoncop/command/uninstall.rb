@@ -17,7 +17,7 @@ module JSONCop
           if content.match(jsoncop_generate_start) && content.match(jsoncop_generate_end)
             content.gsub!(/\/\/ jsoncop: generate-start[^$]*jsoncop: generate\-end/, "")
           end
-          File.write file_path, content + json_cop_template
+          File.write file_path, content
         end
       end
     end
