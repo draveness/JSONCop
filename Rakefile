@@ -1,10 +1,10 @@
-require "bundler/gem_tasks"
-require "rspec/core/rake_task"
+# require "bundler/gem_tasks"
+# require "rspec/core/rake_task"
 require_relative 'lib/jsoncop/version'
 
 require "pathname"
 
-RSpec::Core::RakeTask.new(:spec)
+# RSpec::Core::RakeTask.new(:spec)
 
 task :default => [:build, :install, :clean]
 
