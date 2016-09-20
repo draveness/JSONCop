@@ -30,11 +30,9 @@ module JSONCop
         build_phases = target.build_phases.grep(phase_class)
         build_phases.find { |phase| phase.name && phase.name.end_with?(phase_name) }.tap { |p| p.name = prefixed_phase_name if p } ||
           target.project.new(phase_class).tap do |phase|
-            # UI.message("Adding Build Phase '#{prefixed_phase_name}' to project.") do
-              phase.name = prefixed_phase_name
-              phase.show_env_vars_in_log = '0'
-              target.build_phases << phase
-            # end
+            phase.name = prefixed_phase_name
+            phase.show_env_vars_in_log = '0'
+            target.build_phases.unshift phase
           end
       end
 

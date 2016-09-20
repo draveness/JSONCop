@@ -72,10 +72,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 72EE44CD1D90D523004729ED /* Build configuration list for PBXNativeTarget "JSONCopExample" */;
 			buildPhases = (
+				FEA770172395CC0F2EF9F824 /* [JC] JSONCop Install Script */,
 				72EE44C21D90D523004729ED /* Sources */,
 				72EE44C31D90D523004729ED /* Frameworks */,
 				72EE44C41D90D523004729ED /* CopyFiles */,
-				0F319CA0EF525FFFD6E75FB3 /* [JC] JSONCop Install Script */,
 			);
 			buildRules = (
 			);
@@ -120,9 +120,9 @@
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0F319CA0EF525FFFD6E75FB3 /* [JC] JSONCop Install Script */ = {
+		FEA770172395CC0F2EF9F824 /* [JC] JSONCop Install Script */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
+			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (

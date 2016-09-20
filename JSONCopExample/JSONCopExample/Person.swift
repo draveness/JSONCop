@@ -29,7 +29,7 @@ struct Person {
     }
     
     static func projectsJSONTransformer(value: [[String: Any]]) -> [Project] {
-        return value.flatMap(Project.parse)
+        //return value.flatMap(Project.parse)
     }
 }
 
