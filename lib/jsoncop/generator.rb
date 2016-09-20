@@ -40,6 +40,18 @@ extension #{@model.name} {
     }
 }
 
+extension #{@model.name}: NSCoding {
+    func encode(with aCoder: NSCoder) {
+
+    }
+
+    init?(coder decoder: NSCoder) {
+        guard #{decode_template} else { return nil }
+
+        self.init(#{model.key_value_pair})
+    }
+}
+
 // jsoncop: generate-end
       JSONCOP
     end
@@ -54,5 +66,12 @@ extension #{@model.name} {
         end
       end.join(",\n\t\t\t")
     end
+
+    def decode_template
+      @model.attributes.map do |attr|
+        "let #{attr.name} = decoder.decode#{attr.type}(forKey: \"#{attr.name}\")"
+      end.join(",\n\t\t\t")
+    end
+
   end
 end
