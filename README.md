@@ -40,6 +40,8 @@ This will generate several parsing methods in current file without affecting oth
 
 All the code between `// MARK: - JSONCop-Start` and `// MARK: - JSONCop-End` and will be replaced when re-run `cop install` in current project folder. Other codes will remain unchanged. Please don't write any codes in this area.
 
+Checkout [JSONCopExample](./JSONCopExample) for more information.
+
 ## Installation
 
 ```
