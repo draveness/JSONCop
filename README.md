@@ -19,33 +19,15 @@ let person = Person.parse(json: json)
 
 ## Usage
 
-Define a model with and implement `static func JSONKeyPathByPropertyKey` method:
+Define a model with and **add `//@jsoncop` just before model definition line**:
 
 ```swift
-// jsoncop: enabled
-
+//@jsoncop
 struct Person {
     let id: Int
     let name: String
-    let createdAt: Date
-
-    static func JSONKeyPathByPropertyKey() -> [String: String] {
-        return [
-            "id": "id",
-            "name": "name",
-            "createdAt": "createdAt"
-        ]
-    }
-
-    static func createdAtJSONTransformer(value: Any) -> Date? {
-        guard let value = value as? Double else { return nil }
-        return Date(timeIntervalSinceNow: value)
-    }
 }
 ```
-
-> DO NOT forget to add "// jsoncop: enabled" before struct.
-
 Run `cop install` in project root folder.
 
 ```shell
@@ -56,7 +38,7 @@ This will generate several parsing methods in current file without affecting oth
 
 ![](./images/jsoncop-demo.png)
 
-All the code between `generate-start` and `generate-end` and will be replaced when re-run `cop install` in current project folder. Other codes will remain unchanged. Please don't write any codes in this area.
+All the code between `// MARK: - JSONCop-Start` and `// MARK: - JSONCop-End` and will be replaced when re-run `cop install` in current project folder. Other codes will remain unchanged. Please don't write any codes in this area.
 
 ## Installation
 
