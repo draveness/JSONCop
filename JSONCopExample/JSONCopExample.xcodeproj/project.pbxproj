@@ -75,6 +75,7 @@
 				72EE44C21D90D523004729ED /* Sources */,
 				72EE44C31D90D523004729ED /* Frameworks */,
 				72EE44C41D90D523004729ED /* CopyFiles */,
+				724B5CF01D90F44D00ADCD08 /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -117,6 +118,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		724B5CF01D90F44D00ADCD08 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = "/usr/bin/ruby ";
+			shellScript = "#!/usr/bin/env ruby\nrequire 'jsoncop'\nEncoding.default_external = Encoding::UTF_8\nJSONCop::Command.run([\"install\"])\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		72EE44C21D90D523004729ED /* Sources */ = {
@@ -254,6 +272,7 @@
 				72EE44CF1D90D523004729ED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
