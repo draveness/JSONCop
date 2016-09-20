@@ -25,7 +25,7 @@ module JSONCop
     end
 
     def json_cop_template
-      result = "// MARK: - JSONCop-End\n\n"
+      result = "// MARK: - JSONCop-Start\n\n"
       @models.each do |model|
         result += <<-JSONCOP
 extension #{model.name} {
@@ -40,19 +40,21 @@ extension #{model.name} {
     }
 }
 
-extension #{model.name}: NSCoding {
-    func encode(with aCoder: NSCoder) {
-
-    }
-
-    init?(coder decoder: NSCoder) {
-        guard #{decode_template model} else { return nil }
-
-        self.init(#{model.key_value_pair})
-    }
-}
-
 JSONCOP
+#         result += <<-CODING
+# extension #{model.name}: NSCoding {
+#     func encode(with aCoder: NSCoder) {
+#
+#     }
+#
+#     init?(coder decoder: NSCoder) {
+#         guard #{decode_template model} else { return nil }
+#
+#         self.init(#{model.key_value_pair})
+#     }
+# }
+#
+# CODING
       end
       result += "// MARK: - JSONCop-End"
       result
@@ -71,7 +73,7 @@ JSONCOP
 
     def decode_template(model)
       model.attributes.map do |attr|
-        "let #{attr.name} = decoder.decode#{attr.type}(forKey: \"#{attr.name}\")"
+        "let #{attr.name} = decoder.decode#{attr.decode_type}(forKey: \"#{attr.name}\") as? #{attr.type}"
       end.join(",\n\t\t\t")
     end
 
