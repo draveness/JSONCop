@@ -4,7 +4,7 @@ require 'claide'
 module JSONCop
   class Command < CLAide::Command
     require "jsoncop/command/install"
-    require "jsoncop/command/integrate"
+    require "jsoncop/command/generate"
     require "jsoncop/command/uninstall"
 
     self.abstract_command = true

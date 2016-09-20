@@ -75,7 +75,7 @@
 				72EE44C21D90D523004729ED /* Sources */,
 				72EE44C31D90D523004729ED /* Frameworks */,
 				72EE44C41D90D523004729ED /* CopyFiles */,
-				B015777ED1745646FF4A272C /* [JC] JSONCop Install Script */,
+				0F319CA0EF525FFFD6E75FB3 /* [JC] JSONCop Install Script */,
 			);
 			buildRules = (
 			);
@@ -120,7 +120,7 @@
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		B015777ED1745646FF4A272C /* [JC] JSONCop Install Script */ = {
+		0F319CA0EF525FFFD6E75FB3 /* [JC] JSONCop Install Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -132,7 +132,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /usr/bin/ruby;
-			shellScript = "require 'jsoncop'\nEncoding.default_external = Encoding::UTF_8\nJSONCop::Command.run([\"install\"])\n";
+			shellScript = "require 'jsoncop'\nEncoding.default_external = Encoding::UTF_8\nJSONCop::Command.run([\"generate\"])\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
