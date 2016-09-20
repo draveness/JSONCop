@@ -12,7 +12,21 @@ import Foundation
 struct Person {
     let id: Int
     let name: String
+    let gender: Gender
     let projects: [Project]
+    
+    enum Gender: Int {
+        case male = 0
+        case female = 1
+    }
+    
+    static func JSONKeyPathByPropertyKey() -> [String: String] {
+        return ["nickname": "name"]
+    }
+    
+    static func genderJSONTransformer(value: Int) -> Gender? {
+        return Gender(rawValue: value)
+    }
     
     static func projectsJSONTransformer(value: [[String: Any]]) -> [Project] {
         return value.flatMap(Project.parse)
@@ -30,9 +44,10 @@ extension Person {
     static func parse(json: Any) -> Person? {
         guard let json = json as? [String: Any] else { return nil }
         guard let id = json["id"] as? Int,
-			let name = json["name"] as? String,
+			let name = json["nickname"] as? String,
+			let gender = (json["gender"] as? Int).flatMap(genderJSONTransformer),
 			let projects = (json["projects"] as? [[String: Any]]).flatMap(projectsJSONTransformer) else { return nil }
-        return Person(id: id, name: name, projects: projects)
+        return Person(id: id, name: name, gender: gender, projects: projects)
     }
     static func parses(jsons: Any) -> [Person] {
         guard let jsons = jsons as? [[String: Any]] else { return [] }

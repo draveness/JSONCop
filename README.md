@@ -60,6 +60,45 @@ extension Person {
 
 Checkout [JSONCopExample](./JSONCopExample) for more information.
 
+## Customize
+
++ JSON key to attribute customization
+
+  ```swift
+  struct Person {
+      let id: Int
+      let name: String
+
+      static func JSONKeyPathByPropertyKey() -> [String: String] {
+          return ["nickname": "name"]
+      }
+  }
+  ```
+
++ Value transformer customization
+
+  ```swift
+  struct Person {
+      let id: Int
+      let name: String
+      let gender: Gender
+      let projects: [Project]
+
+      enum Gender: Int {
+          case male = 0
+          case female = 1
+      }
+
+      static func genderJSONTransformer(value: Int) -> Gender? {
+          return Gender(rawValue: value)
+      }
+
+      static func projectsJSONTransformer(value: [[String: Any]]) -> [Project] {
+          return value.flatMap(Project.parse)
+      }
+  }
+  ```
+
 ## Installation
 
 ```shell

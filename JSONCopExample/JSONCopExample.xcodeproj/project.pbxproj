@@ -122,7 +122,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		0F319CA0EF525FFFD6E75FB3 /* [JC] JSONCop Install Script */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
