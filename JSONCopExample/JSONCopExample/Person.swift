@@ -13,6 +13,7 @@ struct Person {
     let id: Int
     let name: String
     let gender: Gender
+    let date: Date
     let projects: [Project]
     
     enum Gender: Int {
@@ -29,8 +30,13 @@ struct Person {
     }
     
     static func projectsJSONTransformer(value: [[String: Any]]) -> [Project] {
-        //return value.flatMap(Project.parse)
+        return value.flatMap(Project.parse)
     }
+    
+    static func dateJSONTransformer(value: Double) -> Date {
+        return Date(timeIntervalSince1970: value)
+    }
+    
 }
 
 //@jsoncop
@@ -46,8 +52,9 @@ extension Person {
         guard let id = json["id"] as? Int,
 			let name = json["nickname"] as? String,
 			let gender = (json["gender"] as? Int).flatMap(genderJSONTransformer),
+			let date = (json["date"] as? Double).flatMap(dateJSONTransformer),
 			let projects = (json["projects"] as? [[String: Any]]).flatMap(projectsJSONTransformer) else { return nil }
-        return Person(id: id, name: name, gender: gender, projects: projects)
+        return Person(id: id, name: name, gender: gender, date: date, projects: projects)
     }
     static func parses(jsons: Any) -> [Person] {
         guard let jsons = jsons as? [[String: Any]] else { return [] }

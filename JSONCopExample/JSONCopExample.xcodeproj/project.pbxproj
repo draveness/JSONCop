@@ -12,13 +12,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		72EE44C41D90D523004729ED /* CopyFiles */ = {
+		72EE44C41D90D523004729ED /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
 			dstSubfolderSpec = 0;
 			files = (
 			);
+			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 1;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -75,7 +76,7 @@
 				FEA770172395CC0F2EF9F824 /* [JC] JSONCop Install Script */,
 				72EE44C21D90D523004729ED /* Sources */,
 				72EE44C31D90D523004729ED /* Frameworks */,
-				72EE44C41D90D523004729ED /* CopyFiles */,
+				72EE44C41D90D523004729ED /* Copy Files */,
 			);
 			buildRules = (
 			);

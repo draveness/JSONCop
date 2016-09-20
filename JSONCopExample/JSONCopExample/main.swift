@@ -10,7 +10,9 @@ import Foundation
 
 let json = [
     "id": 1,
-    "name": "draven",
+    "nickname": "draven",
+    "date": NSTimeIntervalSince1970,
+    "gender": 1,
     "projects": [
         ["name":"project-1"],
         ["name":"project-2"],
@@ -18,4 +20,4 @@ let json = [
     ]
 ] as [String : Any]
 
-//print(Person.parse(json: json))
+print(Person.parse(json: json))
