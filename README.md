@@ -19,10 +19,11 @@ let person = Person.parse(json: json)
 
 ## Usage
 
-Install JSONCop with command below in system ruby version:
+Install JSONCop with command below in system ruby version and run `cop install` in project root folder:
 
 ```shell
-sudo gem install jsoncop --verbose
+$ sudo gem install jsoncop --verbose
+~/project $ cop install
 ```
 
 Define a model with and **add `//@jsoncop` just before model definition line**:
@@ -35,34 +36,11 @@ struct Person {
 }
 ```
 
-Add a run script `in Build Phases`.
-
-```ruby
-#!/usr/bin/env ruby
-require 'jsoncop'
-Encoding.default_external = Encoding::UTF_8
-JSONCop::Command.run(["install"])
-```
-
-![](./images/run-script.png)
-
 Then, each time build action is triggered, JSONCop would generate several parsing methods in swift files.
 
 ![](./images/jsoncop-demo.png)
 
 All the code between `// MARK: - JSONCop-Start` and `// MARK: - JSONCop-End` and will be replaced when re-run `cop install` in current project folder. Other codes will remain unchanged. Please don't write any codes in this area.
-
-Checkout [JSONCopExample](./JSONCopExample) for more information.
-
-## Manual
-
-Run `cop install` in project root folder.
-
-```shell
-$ cop install
-```
-
-This will generate several parsing methods in current file without affecting other part of your codes:
 
 ```ruby
 extension Person {
@@ -79,6 +57,8 @@ extension Person {
     }
 }
 ```
+
+Checkout [JSONCopExample](./JSONCopExample) for more information.
 
 ## Installation
 
