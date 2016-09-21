@@ -19,13 +19,13 @@ let person = Person.parse(json: json)
 
 ## Usage
 
-1. Install JSONCop with `sudo gem install jsoncop --verbose` below in system ruby version
-2. Run `cop install` in project root folder
+1. Install JSONCop with `sudo gem install jsoncop --verbose` below in **system ruby version**
+2. Run `cop install` in **project root folder**
 3. **Add `//@jsoncop` just before model definition line**
 
 ```shell
 $ sudo gem install jsoncop --verbose
-~/project $ cop install
+$ cop install
 ```
 
 ```swift
