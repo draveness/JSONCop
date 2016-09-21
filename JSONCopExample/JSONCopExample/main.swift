@@ -8,16 +8,14 @@
 
 import Foundation
 
-let json = [
+let antherJSON = [
     "id": 1,
-    "nickname": "draven",
+    "name": "draven",
     "date": NSTimeIntervalSince1970,
     "gender": 1,
-    "projects": [
-        ["name":"project-1"],
-        ["name":"project-2"],
-        ["name":"project-3"]
+    "project": [
+        "name":"project-1"
     ]
 ] as [String : Any]
 
-print(Person.parse(json: json))
+print(Person.parse(json: antherJSON))
