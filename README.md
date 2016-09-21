@@ -1,3 +1,5 @@
+![](./images/jsoncop-banner.png)
+
 # JSONCop
 
 [![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://github.com/draveness/jsoncop/blob/master/LICENSE)
