@@ -72,7 +72,7 @@ Checkout [JSONCopExample](./JSONCopExample) for more information.
       let name: String
 
       static func JSONKeyPathByPropertyKey() -> [String: String] {
-          return ["nickname": "name"]
+          return ["name": "nickname"]
       }
   }
   ```
@@ -105,7 +105,7 @@ Checkout [JSONCopExample](./JSONCopExample) for more information.
 
   ```swift
   static func JSONKeyPathByPropertyKey() -> [String: String] {
-      return ["project.name": "currentProjectName"]
+      return ["currentProjectName": "project.name"]
   }
   ```
 
