@@ -35,7 +35,6 @@ struct Person {
     static func dateJSONTransformer(value: Double) -> Date {
         return Date(timeIntervalSince1970: value)
     }
-    
 }
 
 //@jsoncop
