@@ -99,6 +99,14 @@ Checkout [JSONCopExample](./JSONCopExample) for more information.
   }
   ```
 
++ Nested JSON value extraction
+
+  ```swift
+  static func JSONKeyPathByPropertyKey() -> [String: String] {
+      return ["project.name": "currentProjectName"]
+  }
+  ```
+
 ## Installation
 
 ```shell
