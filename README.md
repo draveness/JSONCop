@@ -44,7 +44,7 @@ Then, each time build action is triggered, JSONCop would generate several parsin
 
 All the code between `// MARK: - JSONCop-Start` and `// MARK: - JSONCop-End` and will be replaced when re-run `cop install` in current project folder. Other codes will remain unchanged. Please don't write any codes in this area.
 
-```ruby
+```swift
 extension Person {
     static func parse(json: Any) -> Person? {
         guard let json = json as? [String: Any] else { return nil }
