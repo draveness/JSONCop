@@ -14,10 +14,10 @@ module JSONCop
 
     def generate!
       jsoncop_generate_start = /\/\/ MARK: \- JSONCop\-Start/
-      jsoncop_generate_end = /\/\/ MARK: \- JSONCop\-End/
+      jsoncop_generate_end = /\/\/ JSONCop\-End/
       content = File.read file_path
       if content.match(jsoncop_generate_start) && content.match(jsoncop_generate_end)
-        content.gsub!(/\/\/ MARK: \- JSONCop\-Start[^$]*MARK: \- JSONCop\-End/, json_cop_template)
+        content.gsub!(/\/\/ MARK: \- JSONCop\-Start[^$]*JSONCop\-End/, json_cop_template)
       else
         content += json_cop_template
       end
@@ -56,18 +56,33 @@ JSONCOP
 #
 # CODING
       end
-      result += "// MARK: - JSONCop-End"
+      result += "// JSONCop-End"
       result
     end
 
     def json_parsing_template(model)
       model.attributes.map do |attr|
         transformer = model.transformers.select { |t| t.name == attr.name }.first
-        if transformer
-          "let #{attr.name} = (json[\"#{model.attr_json_hash[attr.name] || attr.name}\"] as? #{transformer.type}).flatMap(#{attr.name}JSONTransformer)"
-        else
-          "let #{attr.name} = json[\"#{model.attr_json_hash[attr.name] || attr.name}\"] as? #{attr.type}"
+        attr_key_path = model.attr_json_hash[attr.name] || attr.name
+        return unless attr_key_path
+        value = "json"
+        key_paths = attr_key_path.split(".")
+        key_paths.each_with_index do |key, index|
+          value.insert 0, "("
+          value += "[\"#{key}\"] as? "
+          if index == key_paths.count - 1
+            if transformer
+              value += "#{transformer.type})"
+              value += ".flatMap(#{attr.name}JSONTransformer)"
+            else
+              value += "#{attr.type})"
+            end
+          else
+            value += "[String: Any])?"
+          end
         end
+
+        "let #{attr.name} = #{value}"
       end.join(",\n\t\t\t")
     end
 

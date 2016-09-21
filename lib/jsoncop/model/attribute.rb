@@ -3,8 +3,8 @@ module JSONCop
     class Attribute
       attr_reader :name, :type
       def initialize(name, type)
-          @name = name.gsub(/\s+/, "")
-          @type = type.gsub(/\s+/, "")
+        @name = name.gsub(/\s+/, "")
+        @type = type.gsub(/\s+/, "")
       end
 
       def real_type

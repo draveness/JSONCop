@@ -12,6 +12,7 @@ import Foundation
 struct Person {
     let id: Int
     let name: String
+    let money: Double
     let gender: Gender
     let date: Date
     let projects: [Project]
@@ -22,7 +23,7 @@ struct Person {
     }
     
     static func JSONKeyPathByPropertyKey() -> [String: String] {
-        return ["nickname": "name"]
+        return ["name": "name"]
     }
     
     static func genderJSONTransformer(value: Int) -> Gender? {
@@ -49,12 +50,13 @@ struct Project {
 extension Person {
     static func parse(json: Any) -> Person? {
         guard let json = json as? [String: Any] else { return nil }
-        guard let id = json["id"] as? Int,
-			let name = json["nickname"] as? String,
+        guard let id = (json["id"] as? Int),
+			let name = (json["name"] as? String),
+			let money = (json["money"] as? Double),
 			let gender = (json["gender"] as? Int).flatMap(genderJSONTransformer),
 			let date = (json["date"] as? Double).flatMap(dateJSONTransformer),
 			let projects = (json["projects"] as? [[String: Any]]).flatMap(projectsJSONTransformer) else { return nil }
-        return Person(id: id, name: name, gender: gender, date: date, projects: projects)
+        return Person(id: id, name: name, money: money, gender: gender, date: date, projects: projects)
     }
     static func parses(jsons: Any) -> [Person] {
         guard let jsons = jsons as? [[String: Any]] else { return [] }
@@ -65,7 +67,7 @@ extension Person {
 extension Project {
     static func parse(json: Any) -> Project? {
         guard let json = json as? [String: Any] else { return nil }
-        guard let name = json["name"] as? String else { return nil }
+        guard let name = (json["name"] as? String) else { return nil }
         return Project(name: name)
     }
     static func parses(jsons: Any) -> [Project] {
@@ -74,4 +76,4 @@ extension Project {
     }
 }
 
-// MARK: - JSONCop-End
+// JSONCop-End

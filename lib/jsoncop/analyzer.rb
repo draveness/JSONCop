@@ -11,7 +11,7 @@ module JSONCop
     MODEL_NAME_REGEX = /(struct|class)\s+(.+)\s*{/
     ATTRIBUTE_REGEX = /^\s+(let|var)\s(.+):(.+)/
     JSON_TRANSFORMER_REGEX = /^\s+static\s+func\s+(.+)JSONTransformer\(.+?\:(.+)\).+->.+/
-    JSON_BY_PROPERTY_HASH_REGEX = /static\s+func\s+JSONKeyPathByPropertyKey\(\)\s*->\s*\[String\s*:\s*String\]\s*{\s*return\s*(\[[\s"a-z0-9A-Z_\-:\[\],]*)}/
+    JSON_BY_PROPERTY_HASH_REGEX = /static\s+func\s+JSONKeyPathByPropertyKey\(\)\s*->\s*\[String\s*:\s*String\]\s*{\s*return\s*(\[[\s\."a-z0-9A-Z_\-:\[\],]*)}/
 
     attr_reader :file_path
     attr_accessor :current_model
@@ -46,7 +46,6 @@ module JSONCop
             |attr_json_pair| attr_json_pair.split(":").reverse
           }]
         end
-
       end
 
       models
