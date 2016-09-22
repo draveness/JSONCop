@@ -8,7 +8,7 @@
 
 JSONCop makes it easy to write a simple model layer for your Cocoa and Cocoa Touch application.
 
-> JSONCop's APIs are highly inspired by [Mantle](https://github.com/Mantle/Mantle), you can use similar APIs to generate parsing methods with JSONCop.
+> JSONCop scans all the methods and variables like `JSONKeyPathByPropertyKey` `xxxJSONTransformer` in all the structs which declare `//@jsoncop` before struct declaration line. And it won't change your original project structure.
 
 ```swift
 let json: [String: Any] = [
@@ -21,9 +21,8 @@ let person = Person.parse(json: json)
 
 ## Usage
 
-1. Install JSONCop with `sudo gem install jsoncop --verbose` below in **system ruby version**
-2. Run `cop install` in **project root folder**
-3. **Add `//@jsoncop` just before model definition line**
+1. Run `cop install` in project root folder
+2. Add `//@jsoncop` just before model definition line
 
 ```shell
 $ sudo gem install jsoncop --verbose
@@ -42,7 +41,7 @@ Then, each time build action is triggered, JSONCop would generate several parsin
 
 ![](./images/jsoncop-demo.png)
 
-All the code between `// MARK: - JSONCop-Start` and `// MARK: - JSONCop-End` and will be replaced when re-run `cop install` in current project folder. Other codes will remain unchanged. Please don't write any codes in this area.
+All the code between `// MARK: - JSONCop-Start` and `// JSONCop-End` and will be replaced when re-run `cop generate` in current project folder. Other codes will remain unchanged. Please don't write any codes in this area.
 
 ```swift
 extension Person {
@@ -118,7 +117,6 @@ sudo gem install jsoncop --verbose
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/draveness/jsoncop. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
-
 
 ## License
 
