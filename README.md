@@ -21,7 +21,7 @@ let person = Person.parse(json: json)
 
 ## Usage
 
-1. Run `cop install` in project root folder
+1. Run `cop install` in a project root folder
 2. Add `//@jsoncop` just before model definition line
 
 ```shell
@@ -48,8 +48,8 @@ extension Person {
     static func parse(json: Any) -> Person? {
         guard let json = json as? [String: Any] else { return nil }
         guard let id = json["id"] as? Int,
-			let name = json["name"] as? String,
-			let projects = (json["projects"] as? [[String: Any]]).flatMap(projectsJSONTransformer) else { return nil }
+            let name = json["name"] as? String,
+            let projects = (json["projects"] as? [[String: Any]]).flatMap(projectsJSONTransformer) else { return nil }
         return Person(id: id, name: name, projects: projects)
     }
     static func parses(jsons: Any) -> [Person] {
@@ -63,7 +63,7 @@ Checkout [JSONCopExample](./JSONCopExample) for more information.
 
 ## Customize
 
-+ JSON key to attribute customization
++ JSON key to attribute customisation
 
   ```swift
   struct Person {
@@ -76,7 +76,7 @@ Checkout [JSONCopExample](./JSONCopExample) for more information.
   }
   ```
 
-+ Value transformer customization
++ Value transformer customisation
 
   ```swift
   struct Person {
